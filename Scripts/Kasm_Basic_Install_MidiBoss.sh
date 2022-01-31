@@ -30,7 +30,7 @@ echo "                          #########   ########   ########   ########   "
 
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu install"
-sudo apt-get update && sudo apt-get dist-upgrade
+sudo apt-get update && sudo apt-get dist-upgrade -y
 
 echo "MidiBoss - create a 1 gigabyte swap partition"
 sudo dd if=/dev/zero bs=1M count=1024 of=/mnt/1GiB.swap
