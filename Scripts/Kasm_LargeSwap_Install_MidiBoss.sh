@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# This ShellScript runs a basic Kasm single server installation as outlined on the Kasm Docs...
-# https://kasmweb.com/docs/latest/install/single_server_install.html
-#
-#
-#
-
-
 # Writing System.out (0) and System.error (2) to flat files in the root directory
 exec >/root/SSout.txt 2>/root/SSerr.txt
 
@@ -32,14 +25,14 @@ echo "                          #########   ########   ########   ########   "
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 sudo apt-get update && sudo apt-get dist-upgrade
 
-echo "MidiBoss - create a 1 gigabyte swap partition"
-sudo dd if=/dev/zero bs=1M count=1024 of=/mnt/1GiB.swap
-sudo chmod 600 /mnt/1GiB.swap
-sudo mkswap /mnt/1GiB.swap
-sudo swapon /mnt/1GiB.swap
+echo "MidiBoss changing 1 gig swap to 5 gig for ability to host 5 instances "
+sudo dd if=/dev/zero bs=1M count=5120 of=/mnt/5GiB.swap
+sudo chmod 600 /mnt/5GiB.swap
+sudo mkswap /mnt/5GiB.swap
+sudo swapon /mnt/5GiB.swap
 
-echo "MidiBoss - make the swap file available on boot"
-echo '/mnt/1GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
+echo "MidiBoss To make the swap file available on boot"
+echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
 
 echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
 echo "MidiBoss Default port 433 is initialised, can change"
