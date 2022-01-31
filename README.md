@@ -1,6 +1,8 @@
 # Kasm_Linode_Install_Scripts
 These are bash scripts to be used to automate the installation of Kasm on Linode servers.
-You can find these already loaded into Linodes
+You can find these already loaded into Linodes StackScript system by searching for kasm or going to 
+
+https://cloud.linode.com/stackscripts/964873
 
 
 ## Kasm_Basic_Install - 
