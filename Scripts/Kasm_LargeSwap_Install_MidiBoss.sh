@@ -36,25 +36,25 @@ sudo apt-get update && sudo apt-get -q dist-upgrade -y
 ##########################################################################
 
 echo "Midiboss - Hardening the server ----------------------------------------"
-echo "Midiboss - Setting hostname to 'BossKasm' ------------------------------"
-hostnamectl set-hostname BossKasm
+echo "Midiboss - Setting hostname to 'MidiKasm' ------------------------------"
+hostnamectl set-hostname MidiKasm
 
 
 #echo "Midiboss - Getting IP from hostname for Hostfile ----------------------"
 # hostname -I
 
-
-echo "Midiboss - Adding Default user"
-useradd KasmBoss -m
+                             
+echo "Midiboss - Adding Default super user 'KasmBoss' "
+sudo useradd -m KasmBoss
 echo -e "Change4Me!\nChange4Me!" | passwd KasmBoss
 
 echo "Midiboss - add user to sudo group"
-usermod -a -G sudo KasmBoss
+usermod -a -G sudo KasmBoss                           
 
 
 echo "Midiboss - install and setup fail2ban"
-sudo apt install fail2ban
-echo -e "
+sudo apt install fail2ban -y
+echo -e "                                      
 [DEFAULT]
 destemail = <your email address>
 sendername = Fail2Ban
@@ -85,3 +85,34 @@ sudo wget https://kasm-static-content.s3.amazonaws.com/kasm_release_1.10.0.23822
 tar -xf kasm_release*.tar.gz
 
 sudo bash kasm_release/install.sh -e
+
+echo "MidiBoss -Secure SSH from Linode setup guide"          
+sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+
+echo "MidiBoss - Make Scary Banner"
+echo -e "
+::::    ::::  ::::::::::: ::::::::: :::::::::::
++:+:+: :+:+:+     :+:     :+:    :+:    :+:
++:+ +:+:+ +:+     +:+     +:+    +:+    +:+
++#+  +:+  +#+     +#+     +#+    +:+    +#+
++#+       +#+     +#+     +#+    +#+    +#+
+#+#       #+#     #+#     #+#    #+#    #+#
+###       ### ########### ######### ###########
+                          :::::::::   ::::::::   ::::::::   ::::::::
+                          :+:    :+: :+:    :+: :+:    :+: :+:    :+:
+                          +:+    +:+ +:+    +:+ +:+        +:+
+                          +#++:++#+  +#+    +:+ +#++:++#++ +#++:++#++
+                          +#+    +#+ +#+    +#+        +#+        +#+
+                          #+#    #+# #+#    #+# #+#    #+# #+#    #+#
+                          #########   ########   ########   ########
+-----------------------------------------------------------------------
+First time login info...
+      User - KasmBoss
+      pass - Change4Me!
+
+Thank you for flying MidiBoss!!
+" >>  /etc/ssh/sshd-banner
+sed -i -e 's/#Banner none/Banner /etc/ssh/sshd-banner/g' /etc/ssh/sshd_config
+Banner /etc/ssh/sshd-banner
+systemctl restart sshd
