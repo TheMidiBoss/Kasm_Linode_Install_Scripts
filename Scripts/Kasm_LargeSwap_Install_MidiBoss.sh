@@ -53,10 +53,11 @@ usermod -a -G sudo KasmBoss
 
 
 echo "Midiboss - install and setup fail2ban"
+echo "Midiboss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
 sudo apt install fail2ban -y
-echo -e "                                      
+echo -e "
 [DEFAULT]
-destemail = <your email address>
+destemail = Joseph@TheMidiBoss.com
 sendername = Fail2Ban
 sudo systemctl restart fail2ban
 
@@ -70,10 +71,9 @@ port = 444
 " >> /etc/fail2ban/jail.local
 
 echo "MidiBoss changing 1 gig swap to 5 gig for ability to host 5 instances "
-sudo dd if=/dev/zero bs=1M count=5120 of=/mnt/5GiB.swap
-sudo chmod 600 /mnt/5GiB.swap
-sudo mkswap /mnt/5GiB.swap
-sudo swapon /mnt/5GiB.swap
+#sudo dd if=/dev/zero bs=1M count=5120 of=/mnt/5GiB.swapsudo chmod 600 /mnt/5GiB.swap
+#sudo mkswap /mnt/5GiB.swap
+#sudo swapon /mnt/5GiB.swap
 
 echo "MidiBoss To make the swap file available on boot"
 echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
@@ -89,6 +89,8 @@ sudo bash kasm_release/install.sh -e
 echo "MidiBoss -Secure SSH from Linode setup guide"          
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication no/g' /etc/ssh/sshd_config
+systemctl restart sshd
+
 
 echo "MidiBoss - Make Scary Banner"
 echo -e "
@@ -107,12 +109,15 @@ echo -e "
                           #+#    #+# #+#    #+# #+#    #+# #+#    #+#
                           #########   ########   ########   ########
 -----------------------------------------------------------------------
-First time login info...
-      User - KasmBoss
-      pass - Change4Me!
+
 
 Thank you for flying MidiBoss!!
 " >>  /etc/ssh/sshd-banner
-sed -i -e 's/#Banner none/Banner /etc/ssh/sshd-banner/g' /etc/ssh/sshd_config
+
+#First time login info...
+#      User - KasmBoss
+#      pass - Change4Me!
+s
+ed -i -e 's/#Banner none/Banner /etc/ssh/sshd-banner/g' /etc/ssh/sshd_config
 Banner /etc/ssh/sshd-banner
 systemctl restart sshd
