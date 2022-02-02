@@ -5,6 +5,7 @@
 # Writing System.out (0) and System.error (2) to flat files in the root directory
 exec >/root/SSout.txt 2>/root/SSerr.txt
 
+MidiKasmLatestVersionUrl="https://kasm-static-content.s3.amazonaws.com/kasm_release_1.10.0.238225.tar.gz"
 MidiUserName="KasmBoss"
 MidiPassword="Change4Me!"
 MidiDomainName="uraharas.net"
@@ -121,9 +122,13 @@ echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
 echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
 echo "MidiBoss Default port 433 is initialised, can change"
 cd /tmp || exit
-sudo wget https://kasm-static-content.s3.amazonaws.com/kasm_release_1.10.0.238225.tar.gz
-tar -xf kasm_release*.tar.gz
+sudo wget $MidiKasmLatestVersionUrl
+tar -xf kasm*.tar.gz
 
 sudo bash kasm_release/install.sh -e
+
+
+echo "MidiBoss - Install my longview link"
+curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
 
 sudo reboot
