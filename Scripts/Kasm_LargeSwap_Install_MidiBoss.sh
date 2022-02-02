@@ -33,7 +33,8 @@ echo "                          #########   ########   ########   ########   "
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 # -q is no animation, -y is accept
-sudo apt-get update && sudo apt-get -q dist-upgrade -y
+sudo apt-get -qq update
+sudo apt-get -qq dist-upgrade -y
 #sudo install tree
 #sudo install maven
 
