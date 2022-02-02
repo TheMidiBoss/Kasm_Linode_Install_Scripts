@@ -127,8 +127,9 @@ echo "MidiBoss Default port 433 is initialised, can change"
 cd /tmp || exit
 sudo wget $MidiKasmLatestVersionUrl
 tar -xf kasm*.tar.gz
-
-sudo bash kasm_release/install.sh -e -u -P Change4Me!
+mkdir save
+cp -r kasm_release save
+sudo bash kasm_release/install.sh -e -I -P $MidiPassword -p $MidiDomainName
 
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
