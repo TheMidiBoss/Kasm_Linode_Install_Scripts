@@ -75,4 +75,4 @@ docker-compose up -d
 
 
 touch /root/all.done
-sudo reboot
+#sudo reboot
