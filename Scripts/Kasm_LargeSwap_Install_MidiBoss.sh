@@ -33,8 +33,8 @@ echo "                          #########   ########   ########   ########   "
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 # -q is no animation, -y is accept
-sudo apt-get -qq update
-sudo apt-get -qq dist-upgrade -y
+sudo apt-get update -qq > /dev/null
+sudo apt-get -qq dist-upgrade -y > /dev/null
 #sudo install tree
 #sudo install maven
 
@@ -85,7 +85,7 @@ echo -e "
 Thank you for flying MidiBoss!!
 " >>/etc/ssh/sshd-banner
 echo "MidiBoss - setting banner to sshd config"
-sed -i -e 's/#Banner none/Banner /etc/ssh/sshd-banner/g' /etc/ssh/sshd_config
+sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
 echo "MidiBoss - Restart SSHD service to lock in settings"
 systemctl restart sshd
 
@@ -95,7 +95,7 @@ echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
 
 echo "MidiBoss - install and setup fail2ban"
 echo "MidiBoss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
-sudo apt install fail2ban -y
+sudo apt-get install fail2ban -y > /dev/null
 echo -e "
   [DEFAULT]
   destemail = $MidiEmailfail2ban
@@ -132,5 +132,5 @@ cd /tmp || exit
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
-
+touch /all.done
 sudo reboot
