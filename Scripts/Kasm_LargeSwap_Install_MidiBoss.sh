@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #todo add firewall
+#https://github.com/kgryte/linode-setup-notes/blob/master/README.md
 
 # Writing System.out (0) and System.error (2) to flat files in the root directory
 exec >/root/SSout.txt 2>/root/SSerr.txt
