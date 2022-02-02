@@ -127,11 +127,11 @@ cd /tmp || exit
 sudo wget $MidiKasmLatestVersionUrl
 tar -xf kasm*.tar.gz
 
-sudo bash kasm_release/install.sh -e
+sudo bash kasm_release/install.sh -e -u -P Change4Me!
 
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
-cd /root
-touch all.done
+
+touch /root/all.done
 sudo reboot
