@@ -5,6 +5,7 @@
 exec >/root/SSout.txt 2>/root/SSerr.txt
 
 MidiDomainName="uraharas.net"
+MidiHostName="MidiKasm"
 MidiIPAddress=$(hostname -I | awk '{print $1 }')
 
 # Including this for fun
@@ -39,7 +40,7 @@ echo sudo apt-get install -y docker
 echo sudo apt-get -q install -y docker-compose
 
 echo mkdir /opt/nginxproxymanager
-cd /opt/nginxproxymanager
+cd /opt/nginxproxymanager || exit
 echo -e '
 version: '3'
 services:
@@ -71,8 +72,6 @@ services:
 ' >> docker-compose.yml
 
 docker-compose up -d
-
-
 
 touch /root/all.done
 #sudo reboot
