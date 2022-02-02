@@ -33,8 +33,8 @@ echo "                          #########   ########   ########   ########   "
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 # -q is no animation, -y is accept
-sudo apt-get update -qq > /dev/null
-sudo apt-get -qq dist-upgrade -y > /dev/null
+sudo apt-get -q update  > /root/1update.log
+sudo apt-get -q dist-upgrade -y > /root/2upgrade.log
 #sudo install tree
 #sudo install maven
 
@@ -95,7 +95,7 @@ echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
 
 echo "MidiBoss - install and setup fail2ban"
 echo "MidiBoss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
-sudo apt-get install fail2ban -y > /dev/null
+sudo apt-get install fail2ban -y > /root/3fail2ban.log
 echo -e "
   [DEFAULT]
   destemail = $MidiEmailfail2ban
@@ -124,10 +124,10 @@ echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
 echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
 echo "MidiBoss Default port 433 is initialised, can change"
 cd /tmp || exit
-#sudo wget $MidiKasmLatestVersionUrl
-#tar -xf kasm*.tar.gz
+sudo wget $MidiKasmLatestVersionUrl
+tar -xf kasm*.tar.gz
 
-#sudo bash kasm_release/install.sh -e
+sudo bash kasm_release/install.sh -e
 
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
