@@ -52,7 +52,8 @@ echo "MidiBoss - locking root password, we may need to comment this out.  ------
 echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
 sudo hostnamectl set-hostname $MidiHostName
 echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
-sudo adduser $MidiUserName --disabled-password --gecos --force-badname ""
+#sudo adduser $MidiUserName --disabled-password --gecos --force-badname ""
+sudo useradd -m $MidiUserName
 echo -e "$MidiPassword\n$MidiPassword" | passwd $MidiUserName
 echo "MidiBoss - add user to sudo group------------------------------------------"
 usermod -a -G sudo $MidiUserName
