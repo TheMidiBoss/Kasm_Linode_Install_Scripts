@@ -36,10 +36,10 @@ echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
 
 
 echo "MidiBoss - New Stuff here"
-echo sudo apt-get install -y docker
-echo sudo apt-get -q install -y docker-compose
+sudo apt-get install -y docker
+sudo apt-get -q install -y docker-compose
 
-echo mkdir /opt/nginxproxymanager
+mkdir /opt/nginxproxymanager
 cd /opt/nginxproxymanager || exit
 echo -e '
 version: '3'
