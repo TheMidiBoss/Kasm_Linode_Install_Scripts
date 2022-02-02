@@ -48,7 +48,7 @@ sudo apt-get update && sudo apt-get -q dist-upgrade -y
 
 echo "MidiBoss - Hardening the server ----------------------------------------"
 echo "MidiBoss - locking root password, we may need to comment this out.  ----------------------------------------"
-passwd --lock root
+#passwd --lock root
 echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
 hostnamectl set-hostname $MidiHostName
 echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
