@@ -132,5 +132,6 @@ cd /tmp || exit
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
-touch /all.done
+cd /root
+touch all.done
 sudo reboot
