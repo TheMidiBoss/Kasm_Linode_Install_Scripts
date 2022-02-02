@@ -50,9 +50,9 @@ echo "MidiBoss - Hardening the server ----------------------------------------"
 echo "MidiBoss - locking root password, we may need to comment this out.  ----------------------------------------"
 #passwd --lock root
 echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
-hostnamectl set-hostname $MidiHostName
+sudo hostnamectl set-hostname $MidiHostName
 echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
-adduser $MidiUserName --disabled-password --gecos ""
+sudo adduser $MidiUserName --disabled-password --gecos --force-badname ""
 echo -e "$MidiPassword\n$MidiPassword" | passwd $MidiUserName
 echo "MidiBoss - add user to sudo group------------------------------------------"
 usermod -a -G sudo $MidiUserName
@@ -84,7 +84,6 @@ Thank you for flying MidiBoss!!
 " >>/etc/ssh/sshd-banner
 echo "MidiBoss - setting banner to sshd config"
 sed -i -e 's/#Banner none/Banner /etc/ssh/sshd-banner/g' /etc/ssh/sshd_config
-Banner /etc/ssh/sshd-banner
 echo "MidiBoss - Restart SSHD service to lock in settings"
 systemctl restart sshd
 
@@ -128,7 +127,7 @@ tar -xf kasm*.tar.gz
 sudo bash kasm_release/install.sh -e
 
 
-echo "MidiBoss - Install my longview link"
-curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
+echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
+# curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
 
 sudo reboot
