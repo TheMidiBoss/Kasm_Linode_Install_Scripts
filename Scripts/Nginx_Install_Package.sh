@@ -58,6 +58,7 @@ services:
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+    restart: always
   db:
     image: 'jc21/mariadb-aria:latest'
     environment:
@@ -67,6 +68,7 @@ services:
       MYSQL_PASSWORD: 'npm'
     volumes:
       - ./data/mysql:/var/lib/mysql
+    restart: always
 " >> docker-compose.yaml
 
 docker-compose up -d
