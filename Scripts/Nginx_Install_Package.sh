@@ -41,8 +41,7 @@ sudo apt-get -q install -y docker-compose
 
 mkdir /opt/nginxproxymanager
 cd /opt/nginxproxymanager || exit
-echo -e '
-version: '3'
+echo -e 'version: '3'
 services:
   app:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -68,8 +67,7 @@ services:
       MYSQL_PASSWORD: 'npm'
     volumes:
       - ./data/mysql:/var/lib/mysql
-
-' >> docker-compose.yml
+' >> docker-compose.yaml
 
 docker-compose up -d
 
