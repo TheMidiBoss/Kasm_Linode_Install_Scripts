@@ -38,7 +38,7 @@ sudo chmod 600 /mnt/1GiB.swap
 sudo mkswap /mnt/1GiB.swap
 sudo swapon /mnt/1GiB.swap
 
-echo "MidiBoss - make the swap file available on boot"
+echo "MidiBoss - make the swap file available on boot "
 echo '/mnt/1GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
 
 echo "MidiBoss - download the latest version of Kasm Workspaces to /tmp"
