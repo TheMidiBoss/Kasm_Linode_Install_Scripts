@@ -130,7 +130,7 @@ tar -xf kasm*.tar.gz
 mkdir save
 cp -r kasm_release save
 sudo bash kasm_release/install.sh -e -I -P $MidiPassword -p $MidiDomainName
-
+#sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash

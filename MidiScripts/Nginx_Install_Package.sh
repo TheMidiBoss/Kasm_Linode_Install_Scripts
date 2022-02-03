@@ -41,6 +41,8 @@ sudo apt-get -q install -y docker-compose
 
 mkdir /opt/nginxproxymanager
 cd /opt/nginxproxymanager || exit
+sudo wget $MidiDocker-ComposeLocation
+
 echo -e "version: '3'
 services:
   app:
