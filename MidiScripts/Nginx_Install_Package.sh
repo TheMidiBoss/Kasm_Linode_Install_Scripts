@@ -7,7 +7,7 @@ exec >/root/SSout.txt 2>/root/SSerr.txt
 MidiDomainName="uraharas.net"
 MidiHostName="MidiKasm"
 MidiIPAddress=$(hostname -I | awk '{print $1 }')
-MidiDocker-ComposeLocation="https://github.com/TheMidiBoss/Kasm_Linode_Install_Scripts/blob/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
+MidiDockerComposeLocation="https://github.com/TheMidiBoss/Kasm_Linode_Install_Scripts/blob/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
 
 # Including this for fun
 # Every ECHO in this script will be prefixed with "MidiBoss - " to differentiate from commands
@@ -42,7 +42,7 @@ sudo apt-get -q install -y docker-compose
 
 mkdir /opt/nginxproxymanager
 cd /opt/nginxproxymanager || exit
-sudo wget $MidiDocker-ComposeLocation
+sudo wget $MidiDockerComposeLocation
 
 docker-compose up -d
 
