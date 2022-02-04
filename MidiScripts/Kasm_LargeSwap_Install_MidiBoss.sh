@@ -1,4 +1,18 @@
 #!/bin/bash
+echo "::::    ::::  ::::::::::: ::::::::: :::::::::::                        "
+echo "+:+:+: :+:+:+     :+:     :+:    :+:    :+:                            "
+echo "+:+ +:+:+ +:+     +:+     +:+    +:+    +:+                            "
+echo "+#+  +:+  +#+     +#+     +#+    +:+    +#+                            "
+echo "+#+       +#+     +#+     +#+    +#+    +#+                            "
+echo "#+#       #+#     #+#     #+#    #+#    #+#                            "
+echo "###       ### ########### ######### ###########                        "
+echo "                              :::::::::   ::::::::   ::::::::   ::::::::   "
+echo "                              :+:    :+: :+:    :+: :+:    :+: :+:    :+:  "
+echo "                              +:+    +:+ +:+    +:+ +:+        +:+         "
+echo "                              +#++:++#+  +#+    +:+ +#++:++#++ +#++:++#++  "
+echo "                              +#+    +#+ +#+    +#+        +#+        +#+  "
+echo "                              #+#    #+# #+#    #+# #+#    #+# #+#    #+#  "
+echo "                              #########   ########   ########   ########   "
 
 #todo add firewall
 #https://github.com/kgryte/linode-setup-notes/blob/master/README.md
@@ -15,23 +29,6 @@ MidiHostName="MidiKasm"
 MidiEmailfail2ban="Joseph@TheMidiBoss.com"
 MidiIPAddress=$(hostname -I | awk '{print $1 }')
 echo "$MidiIPAddress - is ths ip address right now............................................."
-# Including this for fun
-# Every ECHO in this script will be prefixed with "MidiBoss - " to differentiate from commands
-
-echo "::::    ::::  ::::::::::: ::::::::: :::::::::::                        "
-echo "+:+:+: :+:+:+     :+:     :+:    :+:    :+:                            "
-echo "+:+ +:+:+ +:+     +:+     +:+    +:+    +:+                            "
-echo "+#+  +:+  +#+     +#+     +#+    +:+    +#+                            "
-echo "+#+       +#+     +#+     +#+    +#+    +#+                            "
-echo "#+#       #+#     #+#     #+#    #+#    #+#                            "
-echo "###       ### ########### ######### ###########                        "
-echo "                          :::::::::   ::::::::   ::::::::   ::::::::   "
-echo "                          :+:    :+: :+:    :+: :+:    :+: :+:    :+:  "
-echo "                          +:+    +:+ +:+    +:+ +:+        +:+         "
-echo "                          +#++:++#+  +#+    +:+ +#++:++#++ +#++:++#++  "
-echo "                          +#+    +#+ +#+    +#+        +#+        +#+  "
-echo "                          #+#    #+# #+#    #+# #+#    #+# #+#    #+#  "
-echo "                          #########   ########   ########   ########   "
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 # -q is no animation, -y is accept
@@ -67,25 +64,10 @@ sed -i -e "s/#PermitRootLogin no/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i -e "s/PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
 sed -i -e "s/#PasswordAuthentication no/PasswordAuthentication no/" /etc/ssh/sshd_config
 echo "MidiBoss - Make Scary SSH Banner"
-echo -e "
-::::    ::::  ::::::::::: ::::::::: :::::::::::
-+:+:+: :+:+:+     :+:     :+:    :+:    :+:
-+:+ +:+:+ +:+     +:+     +:+    +:+    +:+
-+#+  +:+  +#+     +#+     +#+    +:+    +#+
-+#+       +#+     +#+     +#+    +#+    +#+
-#+#       #+#     #+#     #+#    #+#    #+#
-###       ### ########### ######### ###########
-                          :::::::::   ::::::::   ::::::::   ::::::::
-                          :+:    :+: :+:    :+: :+:    :+: :+:    :+:
-                          +:+    +:+ +:+    +:+ +:+        +:+
-                          +#++:++#+  +#+    +:+ +#++:++#++ +#++:++#++
-                          +#+    +#+ +#+    +#+        +#+        +#+
-                          #+#    #+# #+#    #+# #+#    #+# #+#    #+#
-                          #########   ########   ########   ########
------------------------------------------------------------------------
 
-Thank you for flying MidiBoss!!
-" >>/etc/ssh/sshd-banner
+
+
+/etc/ssh/sshd-banner
 echo "MidiBoss - setting banner to sshd config"
 sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
 echo "MidiBoss - Restart SSHD service to lock in settings"
@@ -122,7 +104,7 @@ echo "MidiBoss - Hardening complete, Setting up Nginx "
         mkdir /opt/nginxproxymanager
         cd /opt/nginxproxymanager || exit
 
-      echo "MidiBoss - Doewnload the dockercompose file from Github"
+      echo "MidiBoss - Download the docker compose file from Github"
         sudo wget $MidiDockerComposeYamlURL
 
       echo "MidiBoss - Docker it UP"
@@ -135,18 +117,21 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
     sudo mkswap /mnt/5GiB.swap
     sudo swapon /mnt/5GiB.swap
 
-  echo "MidiBoss To make the swap file available on boot"
+  echo "MidiBoss - To make the swap file available on boot"
     echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
 
-  echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
-  echo "MidiBoss Default port 8433 is initialised, can change"
-  cd /tmp || exit
-  sudo wget $MidiKasmLatestVersionUrl
-  tar -xf kasm*.tar.gz
-  mkdir save
-  cp -r kasm_release save
-  sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName
-  #sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
+  echo "MidiBoss - Download the latest version of Kasm Workspaces to /tmp"
+    cd /tmp || exit
+    sudo wget $MidiKasmLatestVersionUrl
+
+  echo "MidiBoss - Extract the package and duplicate it to the save folder (can remove later after dev)"
+    tar -xf kasm*.tar.gz
+    mkdir save
+    cp -r kasm_release save
+
+  echo "MidiBoss - Run the installation script. Changed to port 8433 is initialised, TODO change to $"
+    sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName  #TODO change 8443 to $"
+    #sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
