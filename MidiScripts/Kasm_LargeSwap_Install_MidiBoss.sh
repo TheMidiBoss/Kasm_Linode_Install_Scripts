@@ -67,9 +67,9 @@ echo "MidiBoss - Make Scary SSH Banner"
 
 
 
-/etc/ssh/sshd-banner
-echo "MidiBoss - setting banner to sshd config"
-sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
+#/etc/ssh/sshd-banner
+#echo "MidiBoss - setting banner to sshd config" #todo add banner stuff back in
+#sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
 echo "MidiBoss - Restart SSHD service to lock in settings"
 systemctl restart sshd
 
