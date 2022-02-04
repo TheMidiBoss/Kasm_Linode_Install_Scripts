@@ -7,6 +7,7 @@
 exec >/root/SSout.txt 2>/root/SSerr.txt
 
 MidiKasmLatestVersionUrl="https://kasm-static-content.s3.amazonaws.com/kasm_release_1.10.0.238225.tar.gz"
+MidiDockerComposeYamlURL="https://github.com/TheMidiBoss/Kasm_Linode_Install_Scripts/blob/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
 MidiUserName="KasmBoss"
 MidiPassword="Change4Me!"
 MidiDomainName="uraharas.net"
@@ -112,25 +113,40 @@ echo -e "
   port = 444
   " >>/etc/fail2ban/jail.local
 
-echo "MidiBoss - Hardening complete, Setting up Kasm "
-echo "MidiBoss - changing 1 gig swap to 5 gig for ability to host 5 instances "
-sudo dd if=/dev/zero bs=1M count=5120 of=/mnt/5GiB.swap
-sudo chmod 600 /mnt/5GiB.swap
-sudo mkswap /mnt/5GiB.swap
-sudo swapon /mnt/5GiB.swap
+echo "MidiBoss - Hardening complete, Setting up Nginx "
+    echo "MidiBoss - Install Docker Stuff here"
+      sudo apt-get install -y docker
+      sudo apt-get -q install -y docker-compose
 
-echo "MidiBoss To make the swap file available on boot"
-echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
+      echo "MidiBoss - Make the working directory for docker"
+        mkdir /opt/nginxproxymanager
+        cd /opt/nginxproxymanager || exit
 
-echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
-echo "MidiBoss Default port 433 is initialised, can change"
-cd /tmp || exit
-sudo wget $MidiKasmLatestVersionUrl
-tar -xf kasm*.tar.gz
-mkdir save
-cp -r kasm_release save
-sudo bash kasm_release/install.sh -e -I -P $MidiPassword -p $MidiDomainName
-#sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
+      echo "MidiBoss - Doewnload the dockercompose file from Github"
+        sudo wget $MidiDockerComposeYamlURL
+
+      echo "MidiBoss - Docker it UP"
+        docker-compose up -d
+
+echo "MidiBoss - Nginx complete, Setting up Kasm "
+  echo "MidiBoss - changing 1 gig swap to 5 gig for ability to host 5 instances "
+    sudo dd if=/dev/zero bs=1M count=5120 of=/mnt/5GiB.swap
+    sudo chmod 600 /mnt/5GiB.swap
+    sudo mkswap /mnt/5GiB.swap
+    sudo swapon /mnt/5GiB.swap
+
+  echo "MidiBoss To make the swap file available on boot"
+    echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
+
+  echo "MidiBoss Download the latest version of Kasm Workspaces to /tmp//Extract the package and run the installation script."
+  echo "MidiBoss Default port 8433 is initialised, can change"
+  cd /tmp || exit
+  sudo wget $MidiKasmLatestVersionUrl
+  tar -xf kasm*.tar.gz
+  mkdir save
+  cp -r kasm_release save
+  sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName
+  #sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
 
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
