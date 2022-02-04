@@ -7,6 +7,7 @@ exec >/root/SSout.txt 2>/root/SSerr.txt
 MidiDomainName="uraharas.net"
 MidiHostName="MidiKasm"
 MidiIPAddress=$(hostname -I | awk '{print $1 }')
+MidiDocker-ComposeLocation="https://github.com/TheMidiBoss/Kasm_Linode_Install_Scripts/blob/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
 
 # Including this for fun
 # Every ECHO in this script will be prefixed with "MidiBoss - " to differentiate from commands
@@ -42,36 +43,6 @@ sudo apt-get -q install -y docker-compose
 mkdir /opt/nginxproxymanager
 cd /opt/nginxproxymanager || exit
 sudo wget $MidiDocker-ComposeLocation
-
-echo -e "version: '3'
-services:
-  app:
-    image: 'jc21/nginx-proxy-manager:latest'
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    environment:
-      DB_MYSQL_HOST: 'db'
-      DB_MYSQL_PORT: 3306
-      DB_MYSQL_USER: 'npm'
-      DB_MYSQL_PASSWORD: 'npm'
-      DB_MYSQL_NAME: 'npm'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-    restart: always
-  db:
-    image: 'jc21/mariadb-aria:latest'
-    environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
-    volumes:
-      - ./data/mysql:/var/lib/mysql
-    restart: always
-" >> docker-compose.yaml
 
 docker-compose up -d
 
