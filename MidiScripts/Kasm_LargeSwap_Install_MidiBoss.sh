@@ -21,7 +21,7 @@ echo "                              #########   ########   ########   ########  
 exec >/root/SSout.txt 2>/root/SSerr.txt
 
 MidiKasmLatestVersionUrl="https://kasm-static-content.s3.amazonaws.com/kasm_release_1.10.0.238225.tar.gz"
-MidiDockerComposeYamlURL="https://github.com/TheMidiBoss/Kasm_Linode_Install_Scripts/blob/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
+MidiDockerComposeYamlURL="https://raw.githubusercontent.com/TheMidiBoss/Kasm_Linode_Install_Scripts/74f3ce9ed94667df7231abf9d78c73650b305f37/MidiScripts/MidiResource/docker-compose.yaml"
 MidiUserName="KasmBoss"
 MidiPassword="Change4Me!"
 MidiDomainName="uraharas.net"
@@ -32,8 +32,8 @@ echo "$MidiIPAddress - is ths ip address right now..............................
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
 # -q is no animation, -y is accept
-sudo apt-get -q update  > /root/1update.log
-sudo apt-get -q dist-upgrade -y > /root/2upgrade.log
+sudo apt-get -q update  > /root/1.AptGetUpdate.log
+sudo apt-get -q dist-upgrade -y > /root/2.AptGetUpgrade.log
 #sudo install tree
 #sudo install maven
 
@@ -52,7 +52,6 @@ echo "MidiBoss - locking root password, we may need to comment this out.  ------
 echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
 sudo hostnamectl set-hostname $MidiHostName
 echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
-#sudo adduser $MidiUserName --disabled-password --gecos --force-badname ""
 sudo useradd -m $MidiUserName
 echo -e "$MidiPassword\n$MidiPassword" | passwd $MidiUserName
 echo "MidiBoss - add user to sudo group------------------------------------------"
@@ -75,7 +74,6 @@ systemctl restart sshd
 
 echo "MidiBoss - set hosts file"
 echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
-
 
 echo "MidiBoss - install and setup fail2ban"
 echo "MidiBoss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
@@ -118,7 +116,7 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
     sudo swapon /mnt/5GiB.swap
 
   echo "MidiBoss - To make the swap file available on boot"
-    echo '/mnt/5GiB.swap swap swap defaults 0 0' | sudo tee -a /etc/fstab
+    echo -e "/mnt/5GiB.swap\tswap\t\tswap\tdefaults\t  0\t0" | sudo tee -a /etc/fstab
 
   echo "MidiBoss - Download the latest version of Kasm Workspaces to /tmp"
     cd /tmp || exit
@@ -131,8 +129,8 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
 
   echo "MidiBoss - Run the installation script. Changed to port 8433 is initialised, TODO change to $"
     sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName  #TODO change 8443 to $"
-    #sudo bash kasm_release/install.sh -e -I -l 444 -P Change4Me! -p uraharas.net
 
+cd /tmp || exit
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
 # curl -s https://lv.linode.com/58BBB504-5535-4FC8-A1089B85287932AB | sudo bash
 
