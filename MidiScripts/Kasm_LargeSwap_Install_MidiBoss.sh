@@ -74,7 +74,6 @@ echo "MidiBoss - Hardening the server ----------------------------------------"
 [DEFAULT]
 destemail = $MidiEmailfail2ban
 sendername = Fail2Ban
-sudo systemctl restart fail2ban
 
 [sshd]
 enabled = true
@@ -84,6 +83,9 @@ port = 444
 enabled = true
 port = 444
 " >>/etc/fail2ban/jail.local
+
+sudo systemctl restart fail2ban
+
 
 echo "MidiBoss - Hardening complete, Setting up Nginx "
     echo "MidiBoss - Install Docker Stuff here"
@@ -121,6 +123,12 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
 
     echo "MidiBoss - Run the installation script. Changed to port 8433 is initialised, TODO change to $"
         sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName  #TODO change 8443 to $"
+
+
+
+    echo "MidiBoss - Kasm Done installing portainer"
+      cd ~/ || exit
+      docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
 cd /tmp || exit
 echo "MidiBoss - Install my longview link ----------- Only works on fresh longview sessions?"
