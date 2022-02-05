@@ -32,67 +32,58 @@ MidiIPAddress=$(hostname -I | awk '{print $1 }')
 echo "$MidiIPAddress - is ths ip address right now............................................."
 
 echo "MidiBoss - apt get update and dist-upgrade to freshen up the ubuntu"
-# -q is no animation, -y is accept
 sudo apt-get -q update  > /root/1.AptGetUpdate.log
 sudo apt-get -q dist-upgrade -y > /root/2.AptGetUpgrade.log
-#sudo install tree
-#sudo install maven
 
-########################################################################
-## Quoted from
-##In Docker you have 2 alternatives: (1) run each command separately
-# rather than with && joining them (might work, but it's not the "docker
-# way") (2) redirect the output to /dev/null like in the other answer.
-# Option 2 is probably your best bet while there is this bug
-##
-##########################################################################
 
 echo "MidiBoss - Hardening the server ----------------------------------------"
-echo "MidiBoss - locking root password, we may need to comment this out.  ----------------------------------------"
-#passwd --lock root
-echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
-sudo hostnamectl set-hostname $MidiHostName
-echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
-sudo useradd -m $MidiUserName
-echo -e "$MidiPassword\n$MidiPassword" | passwd $MidiUserName
-echo "MidiBoss - add user to sudo group------------------------------------------"
-usermod -a -G sudo $MidiUserName
+    echo "MidiBoss - locking root password, we may need to comment this out.  ----------------------------------------"
+      #passwd --lock root
 
-echo "MidiBoss -Secure SSH from Linode setup guide----------------------------"
-sed -i -e "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
-sed -i -e "s/#PermitRootLogin no/PermitRootLogin no/" /etc/ssh/sshd_config
-sed -i -e "s/PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
-sed -i -e "s/#PasswordAuthentication no/PasswordAuthentication no/" /etc/ssh/sshd_config
-echo "MidiBoss - Make Scary SSH Banner"
+    echo "MidiBoss - Setting hostname to 'MidiKasm' ------------------------------"
+      sudo hostnamectl set-hostname $MidiHostName
 
+    echo "MidiBoss - Adding Default super user 'KasmBoss' ------------------------"
+      sudo useradd -m $MidiUserName
+      echo -e "$MidiPassword\n$MidiPassword" | passwd $MidiUserName
 
+    echo "MidiBoss - add user to sudo group------------------------------------------"
+      usermod -a -G sudo $MidiUserName
 
-#/etc/ssh/sshd-banner
-#echo "MidiBoss - setting banner to sshd config" #todo add banner stuff back in
-#sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
-echo "MidiBoss - Restart SSHD service to lock in settings"
-systemctl restart sshd
+    echo "MidiBoss -Secure SSH from Linode setup guide----------------------------"
+      sed -i -e "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
+      sed -i -e "s/#PermitRootLogin no/PermitRootLogin no/" /etc/ssh/sshd_config
+      sed -i -e "s/PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
+      sed -i -e "s/#PasswordAuthentication no/PasswordAuthentication no/" /etc/ssh/sshd_config
 
-echo "MidiBoss - set hosts file"
-echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
+    echo "MidiBoss - Make Scary SSH Banner"
+      #/etc/ssh/sshd-banner
+      #echo "MidiBoss - setting banner to sshd config" #todo add banner stuff back in
+      #sed -i -e "s%'#Banner none'%'Banner /etc/ssh/sshd-banner'%g" /etc/ssh/sshd_config
 
-echo "MidiBoss - install and setup fail2ban"
-echo "MidiBoss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
-sudo apt-get install fail2ban -y > /root/3fail2ban.log
-echo -e "
-  [DEFAULT]
-  destemail = $MidiEmailfail2ban
-  sendername = Fail2Ban
-  sudo systemctl restart fail2ban
+    echo "MidiBoss - Restart SSHD service to lock in settings"
+      systemctl restart sshd
 
-  [sshd]
-  enabled = true
-  port = 444
+    echo "MidiBoss - set hosts file"
+    echo -e "$MidiIPAddress\t$MidiDomainName $MidiHostName" >> /etc/hosts
 
-  [sshd-ddos]
-  enabled = true
-  port = 444
-  " >>/etc/fail2ban/jail.local
+    echo "MidiBoss - install and setup fail2ban"
+    echo "MidiBoss - use 'sudo fail2ban-client status' and 'sudo fail2ban-client status sshd' to check bans"
+    sudo apt-get install fail2ban -y > /root/3fail2ban.log
+    echo -e "
+      [DEFAULT]
+      destemail = $MidiEmailfail2ban
+      sendername = Fail2Ban
+      sudo systemctl restart fail2ban
+
+      [sshd]
+      enabled = true
+      port = 444
+
+      [sshd-ddos]
+      enabled = true
+      port = 444
+      " >>/etc/fail2ban/jail.local
 
 echo "MidiBoss - Hardening complete, Setting up Nginx "
     echo "MidiBoss - Install Docker Stuff here"
