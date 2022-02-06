@@ -122,7 +122,7 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
         cp -r kasm_release save
 
     echo "MidiBoss - Run the installation script. Changed to port 8433 is initialised, TODO change to $"
-        sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName  #TODO change 8443 to $"
+        sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName       #TODO change 8443 to $var"
 
 
 
