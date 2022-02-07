@@ -28,6 +28,7 @@ MidiUserName="KasmBoss"
 MidiPassword="Change4Me!"
 MidiDomainName="uraharas.net"
 MidiHostName="MidiKasm"
+MidiKasmPort="8443"
 MidiEmailfail2ban="Joseph@TheMidiBoss.com"
 MidiIPAddress=$(hostname -I | awk '{print $1 }')
 echo "$MidiIPAddress - is ths ip address right now............................................."
@@ -123,7 +124,7 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
         cp -r kasm_release save
 
     echo "MidiBoss - Run the installation script. Changed to port 8433 is initialised, TODO change to $"
-        sudo bash kasm_release/install.sh -e -L 8433 -I -P $MidiPassword -p $MidiDomainName       #TODO change 8443 to $var"
+        sudo bash kasm_release/install.sh -e -L $MidiKasmPort -I -P $MidiPassword -p $MidiDomainName       #DONE change 8443 to $var"
 
 
 
