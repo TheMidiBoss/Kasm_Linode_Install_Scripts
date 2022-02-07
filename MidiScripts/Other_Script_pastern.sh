@@ -1,3 +1,7 @@
+using the numbers from this script to set up the portainer
+
+
+
 
 #!/bin/bash
 # SIMPLE WAYS TO MAKE LIFE EASIER
