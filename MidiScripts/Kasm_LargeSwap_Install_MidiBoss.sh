@@ -14,6 +14,7 @@ echo -e"
                               +#+    +#+ +#+    +#+        +#+        +#+
                               #+#    #+# #+#    #+# #+#    #+# #+#    #+#
                               #########   ########   ########   ########    "
+                              # we need to remove this and make it a git file
 
 #todo add firewall
 #https://github.com/kgryte/linode-setup-notes/blob/master/README.md
