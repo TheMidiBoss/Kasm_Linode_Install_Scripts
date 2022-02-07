@@ -36,12 +36,7 @@
 export DEBIAN_FRONTEND=noninteractive
 lsb_rel="$(lsb_release -sc)"
 ### Fix cockpit install error Debian 9
-if [ "$lsb_rel" = "stretch" ]; then
-     echo "Installing on Debian 9"
-     echo "deb [arch=amd64] http://deb.debian.org/debian $(lsb_release -cs)-backports main" | sudo tee /etc/apt/sources.list.d/backports.list
-else
-    echo "not Debian 9"
-fi
+
 ### Fix update IPv6 method error
 apt-get -o Acquire::ForceIPv4=true update -y
 apt-get install sudo -y
@@ -57,13 +52,7 @@ sudo echo "::1         localhost ip6-localhost ip6-loopback" >> /etc/hosts
 sudo echo "ff02::1         ip6-allnodes" >> /etc/hosts
 sudo echo "ff02::2         ip6-allrouters" >> /etc/hosts
 sudo echo "sudoers:        files" >> /etc/nsswitch.conf
-### Fix cockpit-pcp update error ubuntu 18.04
-if [ "$lsb_rel" = "bionic" ]; then
-     echo "Installing on ubuntu 18.04"
-     sudo apt-get upgrade -t bionic-backports cockpit -y
-else
-    echo "not ubuntu 18.04"
-fi
+
 sudo apt-get remove -y docker docker.io containerd runc
 for i in net-tools curl nano wget git gedit unzip htop locate preload cockpit cockpit-pcp apt-transport-https ca-certificates gnupg-agent software-properties-common; do sudo apt-get install -y $i; done
 sudo updatedb
