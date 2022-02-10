@@ -18,7 +18,7 @@ https://kasmweb.com/docs/latest/install/single_server_install.html
     download, do not reboot the server, you will be given a login prompt on the lish console 
     once it is ready.
 
-## Kasm_LargeSwap_Install - 
+## Kasm_LargeSwap_Install - THIS IS NOT DONE YET!!! PLAY WITH IT AT YOUR OWN RISK
     this Script runs the basic install scripts plus it hardens your linode server and upgrades 
     the size of the swap and sets a default sudo user outsie off the root. 
 
