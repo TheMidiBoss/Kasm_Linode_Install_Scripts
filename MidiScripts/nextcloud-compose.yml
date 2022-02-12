@@ -1,4 +1,9 @@
-ersion: '3'
+THIS DID NOT WORK WELL>>> THE AIO DOCKER IMAGE DID GREAT>
+
+
+
+
+version: '3'
 
 volumes:
   nextcloud-data:
