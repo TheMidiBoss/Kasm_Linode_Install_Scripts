@@ -27,9 +27,11 @@
 #
 # IMPORTANT: Once deployed, visit http://{host}:81   to setup Nginx-Proxy-Manager admin password!
 #
+
 ### Update server
 export DEBIAN_FRONTEND=noninteractive
 lsb_rel="$(lsb_release -sc)"
+
 ### Fix cockpit install error Debian 9
 if [ "$lsb_rel" = "stretch" ]; then
      echo "Installing on Debian 9"
@@ -37,11 +39,13 @@ if [ "$lsb_rel" = "stretch" ]; then
 else
     echo "not Debian 9"
 fi
+
 ### Fix update IPv6 method error
 apt-get -o Acquire::ForceIPv4=true update -y
 apt-get install sudo -y
 sudo echo 'Acquire::ForceIPv4 "true";' | tee /etc/apt/apt.conf.d/99force-ipv4
 sudo echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
+
 ### Set timezone and hostname
 sudo timedatectl set-timezone Europe/London
 sudo hostnamectl set-hostname cockpit.server.us
@@ -52,6 +56,7 @@ sudo echo "::1         localhost ip6-localhost ip6-loopback" >> /etc/hosts
 sudo echo "ff02::1         ip6-allnodes" >> /etc/hosts
 sudo echo "ff02::2         ip6-allrouters" >> /etc/hosts
 sudo echo "sudoers:        files" >> /etc/nsswitch.conf
+
 ### Fix cockpit-pcp update error ubuntu 18.04
 if [ "$lsb_rel" = "bionic" ]; then
      echo "Installing on ubuntu 18.04"
@@ -102,6 +107,7 @@ sudo ufw allow 443/tcp
 sudo ufw allow 81/tcp
 sudo systemctl restart docker
 sudo systemctl restart cockpit.socket
+
 ### Create network and start a docker containers
 sudo usermod -aG docker $(whoami)
 sudo mkdir /root/docker
@@ -128,11 +134,14 @@ sudo docker run -d -p 80:80 -p 443:443 -p 81:81 --name nginx_proxy_manager \
     -v /root/docker/proxymanager/data:/data \
     -v /root/docker/letsencrypt:/etc/letsencrypt \
     jc21/nginx-proxy-manager:latest
+
 ### Install ctop: https://github.com/bcicen/ctop
 wget https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-amd64 -O /usr/local/bin/ctop
 chmod +x /usr/local/bin/ctop
+
 ### Upgrade server
 sudo -E apt-get -o Dpkg::Options::="--force-confold" -o Dpkg::Options::="--force-confdef" dist-upgrade -q -y --allow-downgrades --allow-remove-essential --allow-change-held-packages
+
 ### Ubuntu Fix cockpit update error Cannot refresh cache whilst offline.
 ### sudo sed -i -re 's/([a-z]{2}\.)?networkd/NetworkManager/g' /etc/netplan/01-netcfg.yaml
 sudo echo "network:" > /etc/netplan/01-network-manager-all.yaml
@@ -141,6 +150,7 @@ sudo echo "  renderer: NetworkManager" >> /etc/netplan/01-network-manager-all.ya
 sudo netplan generate
 sudo netplan apply
 sudo systemctl restart NetworkManager
+
 ### Fix Debian 10 Store Metrics.
 if [ "$lsb_rel" = "buster" ]; then
      echo "Fix Debian 10 Store Metrics"
@@ -154,12 +164,15 @@ if [ "$lsb_rel" = "buster" ]; then
 else
     echo "not Debian 10"
 fi
+
 ### Clean server
 sudo apt-get autoclean
 sudo apt-get autoremove --purge
 sudo touch /var/lib/cloud/instance/warnings/.skip
+
 ### Reboot server
 reboot
+
 ### Ubuntu 16.04 cockpit web update error Cannot refresh cache whilst offline fix manually when need.
 #sudo systemctl disable network-manager.service
 #sudo systemctl stop network-manager.service
