@@ -62,29 +62,37 @@ fi
 sudo apt-get remove -y docker docker.io containerd runc
 for i in net-tools curl nano wget git gedit unzip htop locate preload cockpit cockpit-pcp apt-transport-https ca-certificates gnupg-agent software-properties-common; do sudo apt-get install -y $i; done
 sudo updatedb
+
 ### Fix systemd-udevd vethXXXXXXX: Failed to get link config: No such device
 sudo touch /etc/udev/rules.d/80-net-setup-link.rules
 sudo echo 'ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", ATTR{tx_queue_len}="1000"' | sudo tee /etc/udev/rules.d/10-persistent-network.rules
+
 ### Fix watchdog: watchdog0: watchdog did not stop!
 sudo echo "RuntimeWatchdogSec=0" >> /etc/systemd/system.conf
 sudo echo "RebootWatchdogSec=0" >> /etc/systemd/system.conf
 sudo echo "ShutdownWatchdogSec=0" >> /etc/systemd/system.conf
+
 ### Fix cockpit udisks2 error
 sudo mkdir -p /usr/lib/x86_64-linux-gnu/udisks2/modules
+
 ### Fix ctop path error ubuntu 18.04 and 16.04
 export PATH=/usr/bin:$PATH
+
 ### Install Docker
 curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
 echo "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt-get -o Acquire::ForceIPv4=true update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
 ### Install Docker-Compose
 curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
 ###  Enable service to run at startup
 sudo systemctl enable --now cockpit.socket
 sudo systemctl enable --now docker
+
 ### Firewall rules enable ports
 sudo ufw allow 9090/tcp
 sudo ufw allow 9443/tcp
