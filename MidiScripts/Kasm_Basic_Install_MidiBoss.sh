@@ -51,7 +51,6 @@ tar -xf kasm_release*.tar.gz
 echo "MidiBoss - run the installation script -e accepts the EULA"
 sudo bash kasm_release/install.sh -e
 
-echo
 echo "Thank You for Choosing,"
 echo
 echo "::::    ::::  ::::::::::: ::::::::: :::::::::::                        "
