@@ -1,4 +1,4 @@
-THIS DID NOT WORK WELL>>> THE AIO DOCKER IMAGE DID GREAT>
+THIS DID NOT WORK WELL>>> THE AIO DOCKER IMAGE DID GREAT> but this is a good file to look at
 
 version: '3'
 
@@ -11,6 +11,7 @@ volumes:
 
 networks:
   frontend:
+
   # add this if the network is already existing!
   # external: true
   backend:
