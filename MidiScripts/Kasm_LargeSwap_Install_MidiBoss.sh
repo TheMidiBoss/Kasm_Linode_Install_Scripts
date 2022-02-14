@@ -97,6 +97,9 @@ echo "MidiBoss - Hardening complete, Setting up Nginx "
         sudo apt-get install -y docker
         sudo apt-get -q install -y docker-compose
 
+
+
+
       echo "MidiBoss - Make the working directory for docker"
           mkdir /opt/nginxproxymanager
           cd /opt/nginxproxymanager || exit
