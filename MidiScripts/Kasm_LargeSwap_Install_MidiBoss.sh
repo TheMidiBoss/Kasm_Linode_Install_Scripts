@@ -96,7 +96,6 @@ sudo systemctl restart fail2ban
 echo "MidiBoss - Hardening complete, Setting up Nginx "
     echo "MidiBoss - Install Docker Stuff here"
         sudo apt-get install -y docker
-enabled = true
         sudo apt-get -q install -y docker-compose
 
       echo "MidiBoss - Make the working directory for docker"
