@@ -132,8 +132,6 @@ echo "MidiBoss - Nginx complete, Setting up Kasm "
         sudo bash kasm_release/install.sh -e -L $MidiKasmPort -I -P $MidiPassword -p $MidiDomainName       #DONE change 8443 to $var"
         sudo bash kasm_release/install.sh -e -L 8444 -I -P Change4Me! -p uraharas.net       #DONE change 8443 to $var"
 
-
-
     echo "MidiBoss - Kasm Done installing portainer"
       cd ~/ || exit
       docker volume create portainer_data
