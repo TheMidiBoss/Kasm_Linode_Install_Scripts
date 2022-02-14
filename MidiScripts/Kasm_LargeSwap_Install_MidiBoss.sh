@@ -14,7 +14,7 @@ echo -e"
                               +#+    +#+ +#+    +#+        +#+        +#+
                               #+#    #+# #+#    #+# #+#    #+# #+#    #+#
                               #########   ########   ########   ########    "
-                              # we need to remove this and make it a git  file
+                              # todo we need to remove this and make it a git  file
 
 
 
